@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            padding-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: hsl(125, 83%, 21%);
+        }
+        .main__block__img{
+            border-radius: 2em;
+        }
+        .main__block__img:hover{
+            cursor: pointer;
+        }
+        .main__block__img:active{
+            margin-top: 2px;
+            margin-left: 2px;
+            transform: rotateY(30deg);
+            transition: 0.5s;
+        }
+        .overlay{
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            visibility: hidden;
+        }
+        .container__slider{
+            display: none;
+        }
+        button{
+    background: hsl(228, 48%, 33%);
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: .5rem 2rem;
+    font-size: .9rem;
+}
+.buttoncentr
+{
+display: flex;
+justify-content: space-around;
+    margin: auto;
+}
+.slider{
+    width: 750px;
+    height: 439px;
+    border: 2px solid black;
+    margin: 30px auto;
+    overflow: hidden;
+    border-radius: 30px;
+}
+.slider-line{
+    height: 439px;
+    width: 3000px;
+    background: orange;
+    display: flex;
+    position: relative;
+    left: 0;
+    transition: all ease 1s;
+}
+button:hover {
+    background: orange;
+}
+button :active{
+    background: #000;
+    color:#fff
+}
+       
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="conteiner">
+            <div class="main__content">
+                <div class="main__block">
+                    <img class="main__block__img" src="./img/1.jpg" alt="">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+    <div class="container__slider">
+        <div class="slider">
+            <div class="slider-line">
+                <img src="./img/1.jpg" alt="">
+                <img src="./img/2.jpg" alt="">
+                <img src="./img/3.jpg" alt="">
+                <img src="./img/4.jpg" alt="">
+                
+            </div>
+        </div>
+    <div class="buttoncentr">
+
+        <button class="slider-prev">Prev</button>
+
+        <button class="slider-next">Next</button>
+    </div>
+
+    </div>
+
+
+
+
+    <script >
+
+
+
+
+
+
+        localStorage.clear()
+        let img = document.querySelector('.main__block__img')
+        let over = document.querySelector('.overlay')
+        let sliderCont = document.querySelector('.container__slider')
+        let main = document.querySelector('.main')
+        let slider = document.querySelector('.slider')
+
+
+        let num = 750/439
+        let num2 = parseInt(500*num)
+         let str = ""
+
+        img.addEventListener('click', func)
+        function func(){
+            main.style.display='none'
+           slider.style.height = '500px'
+            slider.style.width = num2 + 'px'
+           sliderLine.style.height = '500px'
+       
+           over.style.visibility = 'visible'
+           sliderCont.style.display='block'
+           
+        }
+
+
+        let offset=0; //смещение о  левого края
+const sliderLine = document.querySelector('.slider-line');
+
+document.querySelector('.slider-next').addEventListener('click', function(){
+    offset = offset +(num2) ;//+=256;
+    if (offset > (num2* 3)){
+        offset = 0;
+    }
+    sliderLine.style.left = -offset + 'px';
+});
+
+document.querySelector('.slider-prev').addEventListener('click', function(){
+
+    offset = offset - (num2) ;//+=256;
+    if (offset < 0) {
+     offset = (num2 * 3);
+    }
+    sliderLine.style.left = -offset + 'px';
+});
+ sliderLine.addEventListener('click', function(){
+      over.style.visibility = 'hidden'
+      main.style.display='block'
+     sliderCont.style.display='none'
+    //   if(offset=0){
+    //     img.src='./img/1.jpg'
+    //  }else 
+     if(offset > 0 && offset <=num2 ){
+         img.src='./img/2.jpg'
+      }else if(offset>num2 && offset <=num2*2){
+       img.src='./img/3.jpg'
+      }else if(offset>num2*2){
+        img.src='./img/4.jpg'
+      }else{
+        img.src='./img/1.jpg'
+      }
+      str = img.src
+     localStorage.setItem('img',str)
+ })
+    </script>
+</body>
+</html>
